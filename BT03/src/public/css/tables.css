@@ -1,0 +1,286 @@
+/* =====================================================
+   TABLE STYLES - Data table styling
+   ===================================================== */
+
+.user-list-wrapper {
+  padding: 0;
+}
+
+.user-list-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  margin-bottom: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table thead {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  color: white;
+}
+
+.table thead th {
+  border: none;
+  padding: 1.25rem;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 3px solid #3b82f6;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table tbody td {
+  padding: 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+  background-color: white;
+}
+
+.table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.05),
+    rgba(59, 130, 246, 0.02)
+  );
+  box-shadow: inset 4px 0 0 0 #3b82f6;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* User name column */
+.user-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.user-name small {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* User email column */
+.user-email {
+  color: #3b82f6;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* User info columns */
+.user-info {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* Action cells */
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+}
+
+/* No users state */
+.no-users {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.no-users svg,
+.no-users div[style*="font-size"] {
+  margin: 0 auto;
+  color: #9ca3af;
+}
+
+.no-users p {
+  color: #6b7280;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+/* Badge styles in table */
+.table .badge {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.badge-primary {
+  background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+  color: white;
+}
+
+.badge-info {
+  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  color: white;
+}
+
+/* Sorting indicator (for future use) */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+/* Row highlight on select */
+.table tbody tr.selected {
+  background: rgba(59, 130, 246, 0.15);
+  box-shadow: inset 4px 0 0 0 #3b82f6;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .user-list-title {
+    font-size: 1.5rem;
+  }
+
+  .table thead th {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .table tbody td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+  }
+
+  .btn-action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-email {
+    word-break: break-all;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-list-wrapper {
+    padding: 0;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table thead th {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .table tbody td {
+    padding: 0.5rem;
+  }
+
+  .actions-cell {
+    flex-direction: row;
+    gap: 0.25rem;
+  }
+
+  .btn-action {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .user-info {
+    display: none;
+  }
+}
+
+/* Animation for table rows */
+@keyframes rowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table tbody tr {
+  animation: rowFadeIn 0.4s ease-out;
+}
+
+.table tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.table tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.table tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.table tbody tr:nth-child(n + 4) {
+  animation-delay: 0.2s;
+}
