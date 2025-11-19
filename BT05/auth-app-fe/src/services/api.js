@@ -31,9 +31,11 @@ api.interceptors.response.use(
     // Don't redirect on login/register failures
     if (error.response?.status === 401) {
       const currentPath = window.location.pathname;
-      const isAuthPage = ['/login', '/register', '/forgot-password'].includes(currentPath);
-      
-      if (!isAuthPage && localStorage.getItem('token')) {
+      const isAuthPage = ["/login", "/register", "/forgot-password"].includes(
+        currentPath
+      );
+
+      if (!isAuthPage && localStorage.getItem("token")) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.location.href = "/login";

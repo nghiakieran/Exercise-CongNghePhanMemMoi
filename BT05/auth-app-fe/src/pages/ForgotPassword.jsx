@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Form, Input, Button, Card, Typography, message, Checkbox } from "antd";
+import { Form, Input, Button, Card, Typography, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import authService from "../services/authService";
 
@@ -12,35 +12,38 @@ message.config({
   maxCount: 3,
 });
 
-const Login = () => {
+const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await authService.login({
+      const response = await authService.forgotPassword({
         email: values.email,
-        password: values.password,
+        newPassword: values.newPassword,
       });
 
       if (response.success) {
-        message.success(response.message || "Login successful!");
-        navigate("/dashboard");
+        message.success(response.message || "Password reset successful!");
+        navigate("/login");
       }
     } catch (error) {
-      console.error('Login error:', error);
-      
+      console.error("Forgot password error:", error);
+
       // Handle validation errors
-      if (error.response?.data?.errors && Array.isArray(error.response.data.errors)) {
-        error.response.data.errors.forEach(err => {
-          message.error(err.msg || err.message || 'Validation error');
+      if (
+        error.response?.data?.errors &&
+        Array.isArray(error.response.data.errors)
+      ) {
+        error.response.data.errors.forEach((err) => {
+          message.error(err.msg || err.message || "Validation error");
         });
       } else {
         const errorMessage =
           error.response?.data?.message ||
           error.message ||
-          "Login failed. Please check your credentials.";
+          "Password reset failed. Please try again.";
         message.error(errorMessage);
       }
     } finally {
@@ -55,13 +58,13 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
         padding: "20px",
       }}
     >
       <Card
         style={{
-          width: 420,
+          width: 440,
           boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
           borderRadius: "16px",
           border: "none",
@@ -73,7 +76,7 @@ const Login = () => {
               width: "64px",
               height: "64px",
               margin: "0 auto 16px",
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
               borderRadius: "16px",
               display: "flex",
               alignItems: "center",
@@ -82,18 +85,18 @@ const Login = () => {
               color: "white",
             }}
           >
-            🔐
+            🔑
           </div>
           <Title level={2} style={{ marginBottom: 8 }}>
-            Welcome Back
+            Reset Password
           </Title>
           <Text type="secondary" style={{ fontSize: "15px" }}>
-            Login to continue to your account
+            Enter your email and new password
           </Text>
         </div>
 
         <Form
-          name="login"
+          name="forgot-password"
           onFinish={onFinish}
           layout="vertical"
           requiredMark={false}
@@ -114,30 +117,41 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item
-            name="password"
-            label="Password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            name="newPassword"
+            label="New Password"
+            rules={[
+              { required: true, message: "Please input your new password!" },
+              { min: 6, message: "Password must be at least 6 characters!" },
+            ]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="Enter your password"
+              placeholder="Enter your new password"
               size="large"
             />
           </Form.Item>
 
-          <Form.Item>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-              <Link to="/forgot-password">Forgot password?</Link>
-            </div>
+          <Form.Item
+            name="confirmPassword"
+            label="Confirm New Password"
+            dependencies={["newPassword"]}
+            rules={[
+              { required: true, message: "Please confirm your new password!" },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("newPassword") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("Passwords do not match!"));
+                },
+              }),
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined />}
+              placeholder="Confirm your new password"
+              size="large"
+            />
           </Form.Item>
 
           <Form.Item>
@@ -148,13 +162,13 @@ const Login = () => {
               block
               size="large"
             >
-              Login
+              Reset Password
             </Button>
           </Form.Item>
 
           <div style={{ textAlign: "center" }}>
-            <Text>Don't have an account? </Text>
-            <Link to="/register">Register now</Link>
+            <Text>Remember your password? </Text>
+            <Link to="/login">Login here</Link>
           </div>
         </Form>
       </Card>
@@ -162,4 +176,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
