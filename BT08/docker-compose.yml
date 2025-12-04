@@ -22,9 +22,9 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: bt05_db
+      MYSQL_DATABASE: nghia_bt06
       MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: nghia
     ports:
       - "3307:3306"
     volumes:
