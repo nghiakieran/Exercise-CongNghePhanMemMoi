@@ -42,6 +42,16 @@ const Product = sequelize.define(
       allowNull: false,
       defaultValue: 0,
     },
+    buyersCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    commentsCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
     categoryId: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -5,6 +5,7 @@ const { connectDB } = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const favoriteRoutes = require("./routes/favoriteRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const { apiLimiter } = require("./middleware/rateLimiter");
 
@@ -21,13 +22,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Apply rate limiting to all API routes
-app.use("/api/", apiLimiter);
+// Apply rate limiting to all API routes (production only)
+if (process.env.NODE_ENV === "production") {
+  app.use("/api/", apiLimiter);
+}
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/favorites", favoriteRoutes);
 
 // Health check
 app.get("/health", (req, res) => {

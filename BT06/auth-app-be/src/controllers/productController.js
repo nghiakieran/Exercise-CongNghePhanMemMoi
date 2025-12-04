@@ -3,6 +3,7 @@ const Category = require("../models/Category");
 const { Op } = require("sequelize");
 const searchService = require("../services/searchService");
 
+// Lấy danh sách sản phẩm theo search/filter (có Elasticsearch)
 const getProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -102,6 +103,59 @@ const getProducts = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch products",
+      error: error.message,
+    });
+  }
+};
+
+// Sản phẩm tương tự theo category (và loại trừ chính nó)
+const getSimilarProducts = async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    const { categoryId, price } = product;
+
+    const where = {
+      categoryId,
+      id: { [Op.ne]: product.id },
+    };
+
+    // Có thể thêm filter khoảng giá gần gần sản phẩm gốc nếu muốn
+    if (price) {
+      where.price = {
+        [Op.between]: [price * 0.5, price * 1.5],
+      };
+    }
+
+    const similarProducts = await Product.findAll({
+      where,
+      include: [
+        {
+          model: Category,
+          as: "category",
+          attributes: ["id", "name", "slug"],
+        },
+      ],
+      limit: 8,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Similar products fetched successfully",
+      data: similarProducts,
+    });
+  } catch (error) {
+    console.error("Get similar products error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch similar products",
       error: error.message,
     });
   }
@@ -266,4 +320,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  getSimilarProducts,
 };

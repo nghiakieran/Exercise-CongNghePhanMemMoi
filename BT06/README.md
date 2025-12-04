@@ -146,7 +146,11 @@ Tham khảo code mẫu tại: `d:\SPKT\CNPMM\BTVN_CNPM\BT06\bt06_fe`
 ## 📚 Documentation
 - Elasticsearch JS Client: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
 - Sequelize: https://sequelize.org/docs/v6/
-
+docker run ^
+  -p 9200:9200 ^
+  -e "discovery.type=single-node" ^
+  -e "xpack.security.enabled=false" ^
+  docker.elastic.co/elasticsearch/elasticsearch:8.14.0
 ---
 **Version:** 1.0  
 **Date:** 2025-11-29

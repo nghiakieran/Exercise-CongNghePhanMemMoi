@@ -34,6 +34,18 @@ export const productService = {
     }
   },
 
+  // Get similar products
+  getSimilarProducts: async (id) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/products/${id}/similar`
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
   // Create product (Admin only)
   createProduct: async (productData, token) => {
     try {
@@ -78,6 +90,100 @@ export const productService = {
           Authorization: `Bearer ${token}`,
         },
       });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Favorites
+  getFavorites: async (token) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/favorites`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  addFavorite: async (productId, token) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/favorites/${productId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  removeFavorite: async (productId, token) => {
+    try {
+      const response = await axios.delete(
+        `${API_BASE_URL}/favorites/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Comments
+  getComments: async (productId) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/products/${productId}/comments`
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  addComment: async (productId, data, token) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/products/${productId}/comments`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Purchases (simulate buy)
+  purchaseProduct: async (productId, qty, token) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/products/${productId}/purchase`,
+        { qty },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw error.response?.data || error.message;
