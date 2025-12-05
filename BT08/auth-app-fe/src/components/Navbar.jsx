@@ -39,6 +39,12 @@ const Navbar = () => {
         >
           Sản phẩm
         </Link>
+        <Link
+          to="/cart"
+          className={`navbar-link ${isActive("/cart") ? "active" : ""}`}
+        >
+          Giỏ hàng
+        </Link>
       </div>
 
       <div className="navbar-right">

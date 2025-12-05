@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { productService, categoryService } from "../services/productService";
 import authService from "../services/authService";
+import { ADD_TO_CART } from "../graphql/cartQueries";
+import { graphQLRequest } from "../graphql/graphQLClient";
 import "./ProductList.css";
 
 const ProductList = () => {
@@ -164,6 +166,29 @@ const ProductList = () => {
       setSimilarProducts(response.data || []);
     } catch (error) {
       console.error("Failed to load similar products:", error);
+    }
+  };
+
+  const handleAddToCart = async (product) => {
+    try {
+      // Đảm bảo price là number, không phải string
+      const price = typeof product.price === 'string' 
+        ? parseFloat(product.price) 
+        : Number(product.price);
+      
+      await graphQLRequest(ADD_TO_CART, {
+        input: {
+          productId: String(product.id), // Đảm bảo là string
+          name: product.name,
+          price: price, // Number, không phải string
+          quantity: 1,
+          imageUrl: product.imageUrl || null,
+        },
+      });
+      alert("Đã thêm vào giỏ hàng!");
+    } catch (err) {
+      console.error("Add to cart failed:", err);
+      alert("Thêm vào giỏ hàng thất bại!");
     }
   };
 
@@ -332,7 +357,10 @@ const ProductList = () => {
                     <button
                       className="add-to-cart-btn"
                       type="button"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(product);
+                      }}
                     >
                       <span>🛒</span> Thêm giỏ hàng
                     </button>
