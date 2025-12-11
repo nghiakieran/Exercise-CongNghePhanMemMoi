@@ -1,6 +1,5 @@
 const { gql } = require("apollo-server-express");
 
-// In-memory cart storage for demo purposes
 const cart = [];
 
 const typeDefs = gql`
@@ -15,7 +14,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    cart: [CartItem!]!
+    cart: [CartItem!]! // Lấy danh sách giỏ hàng
   }
 
   input CartItemInput {

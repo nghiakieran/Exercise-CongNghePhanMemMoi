@@ -22,7 +22,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Apply rate limiting to all API routes (production only)
 if (process.env.NODE_ENV === "production") {
   app.use("/api/", apiLimiter);
 }
@@ -41,11 +40,9 @@ app.get("/health", (req, res) => {
 // Error handler
 app.use(errorHandler);
 
-// GraphQL setup (optional - only if ENABLE_GRAPHQL=true)
 async function startServer() {
   const PORT = process.env.PORT || 5000;
 
-  // Only enable GraphQL if explicitly enabled via env var
   if (process.env.ENABLE_GRAPHQL === "true") {
     try {
       const { ApolloServer } = require("apollo-server-express");

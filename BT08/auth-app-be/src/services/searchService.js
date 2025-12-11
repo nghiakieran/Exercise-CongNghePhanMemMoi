@@ -40,7 +40,7 @@ class SearchService {
       throw error;
     }
   }
-
+  // index 1 document vào es
   async indexProduct(product) {
     try {
       await elasticClient.index({

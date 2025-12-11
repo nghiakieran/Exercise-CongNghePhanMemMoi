@@ -23,8 +23,10 @@ const ProductList = () => {
     minPrice: "",
     maxPrice: "",
   });
+  const [searchInput, setSearchInput] = useState(""); // State riêng cho input search
 
   const observerTarget = useRef(null);
+  const searchTimeoutRef = useRef(null); // Ref để lưu timeout
   const navigate = useNavigate();
 
   // Load categories
@@ -66,6 +68,26 @@ const ProductList = () => {
     },
     [filters, loading]
   );
+
+  // Debounce search input - cập nhật filters.search sau 300ms
+  useEffect(() => {
+    // Clear timeout cũ nếu có
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Tạo timeout mới
+    searchTimeoutRef.current = setTimeout(() => {
+      setFilters((prev) => ({ ...prev, search: searchInput, page: 1 }));
+    }, 300);
+
+    // Cleanup khi component unmount hoặc searchInput thay đổi
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [searchInput]);
 
   // Initial load and when filters change
   useEffect(() => {
@@ -141,7 +163,9 @@ const ProductList = () => {
   };
 
   const handleSearch = (e) => {
-    setFilters((prev) => ({ ...prev, search: e.target.value, page: 1 }));
+    // Cập nhật input value ngay lập tức (không debounce)
+    setSearchInput(e.target.value);
+    // filters.search sẽ được cập nhật sau 300ms qua useEffect
   };
 
   const handleCategoryChange = (e) => {
@@ -237,7 +261,7 @@ const ProductList = () => {
   return (
     <div className="product-list-container">
       <header className="shop-header">
-        <h1>🛒 UTE Shop</h1>
+        <h1>🛒 LAPTOP Shop</h1>
         <p>Mua sắm trực tuyến dễ dàng</p>
       </header>
 
@@ -247,7 +271,7 @@ const ProductList = () => {
           <input
             type="text"
             placeholder="Tìm kiếm sản phẩm..."
-            value={filters.search}
+            value={searchInput}
             onChange={handleSearch}
             className="search-input"
           />

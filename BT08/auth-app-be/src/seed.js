@@ -76,7 +76,7 @@ const seedDatabase = async () => {
         stock: 50,
         views: 1250,
         discount: 10,
-        imageUrl: "https://via.placeholder.com/300x300?text=iPhone+15+Pro+Max",
+        imageUrl: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500&h=500&fit=crop",
         categoryId: createdCategories[0].id,
       },
       {
@@ -86,7 +86,7 @@ const seedDatabase = async () => {
         stock: 40,
         views: 980,
         discount: 15,
-        imageUrl: "https://via.placeholder.com/300x300?text=Galaxy+S24+Ultra",
+        imageUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop",
         categoryId: createdCategories[0].id,
       },
       {
@@ -96,7 +96,7 @@ const seedDatabase = async () => {
         stock: 60,
         views: 750,
         discount: 20,
-        imageUrl: "https://via.placeholder.com/300x300?text=Xiaomi+14+Pro",
+        imageUrl: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500&h=500&fit=crop",
         categoryId: createdCategories[0].id,
       },
       {
@@ -106,7 +106,7 @@ const seedDatabase = async () => {
         stock: 20,
         views: 2100,
         discount: 0,
-        imageUrl: "https://via.placeholder.com/300x300?text=MacBook+Pro+16",
+        imageUrl: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500&h=500&fit=crop",
         categoryId: createdCategories[1].id,
       },
       {
@@ -116,7 +116,7 @@ const seedDatabase = async () => {
         stock: 25,
         views: 1500,
         discount: 5,
-        imageUrl: "https://via.placeholder.com/300x300?text=Dell+XPS+15",
+        imageUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop",
         categoryId: createdCategories[1].id,
       },
       {
@@ -126,7 +126,7 @@ const seedDatabase = async () => {
         stock: 30,
         views: 890,
         discount: 0,
-        imageUrl: "https://via.placeholder.com/300x300?text=ThinkPad+X1",
+        imageUrl: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=500&h=500&fit=crop",
         categoryId: createdCategories[1].id,
       },
       {
@@ -136,7 +136,7 @@ const seedDatabase = async () => {
         stock: 100,
         views: 3200,
         discount: 12,
-        imageUrl: "https://via.placeholder.com/300x300?text=AirPods+Pro+2",
+        imageUrl: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=500&h=500&fit=crop",
         categoryId: createdCategories[2].id,
       },
       {
@@ -146,7 +146,7 @@ const seedDatabase = async () => {
         stock: 80,
         views: 2800,
         discount: 8,
-        imageUrl: "https://via.placeholder.com/300x300?text=Sony+WH-1000XM5",
+        imageUrl: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=500&fit=crop",
         categoryId: createdCategories[2].id,
       },
       {
@@ -156,7 +156,7 @@ const seedDatabase = async () => {
         stock: 200,
         views: 450,
         discount: 0,
-        imageUrl: "https://via.placeholder.com/300x300?text=Op+lung+iPhone",
+        imageUrl: "https://images.unsplash.com/photo-1601972602237-8c79241e468b?w=500&h=500&fit=crop",
         categoryId: createdCategories[3].id,
       },
       {
@@ -166,7 +166,7 @@ const seedDatabase = async () => {
         stock: 300,
         views: 620,
         discount: 0,
-        imageUrl: "https://via.placeholder.com/300x300?text=Cap+sac+USB-C",
+        imageUrl: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=500&h=500&fit=crop",
         categoryId: createdCategories[3].id,
       },
     ];
